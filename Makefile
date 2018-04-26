@@ -21,7 +21,7 @@ virtual:
 	@echo
 
 source_env:
-	source ./env/bin/activate
+	source ./venv/bin/activate
 
 install_libs:
 	pip install boto3
