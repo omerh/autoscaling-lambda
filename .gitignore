@@ -1,0 +1,15 @@
+# virtualenv directory
+env/
+# project pack directory
+package/
+.env
+
+# mac shit
+.DS_Store
+
+# Jetbrains
+.idea
+.idea/**
+
+# Artifacts
+*.zip
