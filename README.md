@@ -38,7 +38,7 @@ virtualenv venv
 Activate virtualenv folder that just was created
 
 ```bash
-. ./env/bin/activate
+. ./venv/bin/activate
 ```
 
 To build a packed lambda zip file run
