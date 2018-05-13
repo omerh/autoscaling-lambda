@@ -1,5 +1,5 @@
 # virtualenv directory
-env/
+venv/
 # project pack directory
 package/
 .env
