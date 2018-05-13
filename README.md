@@ -35,9 +35,7 @@ Create virtual env in your project
 virtualenv venv
 ```
 
-> It will create a virtualenv for the project
-
-Source the virtualenv folder that just was created
+Activate virtualenv folder that just was created
 
 ```bash
 . ./env/bin/activate
