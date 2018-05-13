@@ -54,7 +54,6 @@ def increase_desired_count_for_autoscaling_group(group_name, desired_count):
     except Exception as e:
         logger.fatal("The was a problem setting desired capacity of {0} for group {1}".format(desired_count, group_name))
         logger.fatal("{0}".format(e))
-        raise
 
 
 def lambda_handler(event, context):
@@ -64,13 +63,16 @@ def lambda_handler(event, context):
         autoscale_current_count, autoscale_max_capacity = get_current_desired_capacity(pair['autoscale_group'])
         logger.info("SQS Count for group {0} is {1} with instance desired count of {2}".format(pair['autoscale_group'], sqs_count, autoscale_current_count))
 
-        if sqs_count >= autoscale_current_count:
-            if sqs_count > autoscale_max_capacity:
-                isntance_to_add = autoscale_max_capacity
-            else:
-                isntance_to_add = sqs_count + autoscale_current_count
-            logger.info("I should set {0} desired count now".format(isntance_to_add))
-            increase_desired_count_for_autoscaling_group(pair['autoscale_group'], isntance_to_add)
+        try:
+            if sqs_count >= autoscale_current_count:
+                if sqs_count >= autoscale_max_capacity:
+                    isntance_to_add = autoscale_max_capacity
+                else:
+                    isntance_to_add = sqs_count + autoscale_current_count
+                logger.info("I should set {0} desired count now".format(isntance_to_add))
+                increase_desired_count_for_autoscaling_group(pair['autoscale_group'], isntance_to_add)
+        except Exception as e:
+            logger.fatal("Problem adding {0} to {1}".format(isntance_to_add, pair['autoscale_group']))
 
 
 if __name__ == "__main__":
